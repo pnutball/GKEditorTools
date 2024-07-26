@@ -2,6 +2,12 @@
 @icon("res://addons/gk_editor_tools/icons/gk_level.svg")
 extends Node
 class_name GKLevel
+
+## The stage's export path.
+##
+## If blank, exporting this level to JSON will forcibly show the export-as dialog.
+@export_global_file(".gkl.json") var export_path:String = ""
+
 ## The stage's localized name. 
 ## 
 ## Each entry is the internal language code & the corresponding text string.

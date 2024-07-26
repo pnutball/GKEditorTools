@@ -1,7 +1,7 @@
 @tool
 @icon("res://addons/gk_editor_tools/icons/gk_cam_zone.svg")
 class_name GKCamZone
-extends Node3D
+extends Node
 
 @export var lower_bound:float = 0
 @export var camera_scale:float = 1.5

@@ -1,5 +1,5 @@
 @tool
-#@icon("res://addons/gk_editor_tools/icons/gk_level.png")
+@icon("res://addons/gk_editor_tools/icons/gk_area.svg")
 class_name GKArea
 extends Node3D
 
@@ -15,6 +15,7 @@ enum AudioSize {XS, S, M, L, XL, C}
 @export_file("*.png") var core_texture:String = "res://assets/textures/core/core_test.png"
 @export_range(0, 0, 0.01, "hide_slider", "or_greater", "suffix:sec.") var time_bonus:float = 0
 #endregion
+
 ## Returns a JSON-compatible representation of this tree item and its children.
 func to_json():
 	var static_arr:Array = []

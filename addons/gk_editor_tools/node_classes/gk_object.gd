@@ -22,7 +22,11 @@ enum ApproachBehavior {STATIC, SHOOT, FLEE, CHARGE, CLOWN}
 enum PhysicsBehavior {STATIC, GRAVITY, ROAM, PATH, LAUNCH}
 
 
-@export var object_id:StringName = "debug_cube"
+@onready @export var object_id:StringName = "debug_cube":
+	get: return object_id
+	set(new):
+		object_id = new
+		update_object()
 @export_group("Behavior")
 @export_subgroup("Approach")
 @export var approach_behavior:ApproachBehavior = ApproachBehavior.STATIC
@@ -65,3 +69,34 @@ func to_json():
 	
 	return dict
 
+func _ready():
+	var object_instance:MeshInstance3D = MeshInstance3D.new()
+	var object_shader:ShaderMaterial = ShaderMaterial.new()
+	object_shader.shader = preload("res://addons/gk_editor_tools/assets/object.gdshader")
+	object_instance.material_override = object_shader
+	object_instance.name = "_ObjectInstance"
+	add_child(object_instance, false, Node.INTERNAL_MODE_FRONT)
+	update_object()
+
+func _process(_delta):
+	scale = Vector3.ONE
+	if has_node(^"_ObjectInstance"):
+		$_ObjectInstance.material_override.set_shader_parameter(&"Rolled", self in EditorInterface.get_selection().get_selected_nodes())
+
+func update_object():
+	if has_node(^"_ObjectInstance"):
+		var path:String = (ProjectSettings.get_setting("plugins/gk_tools/object_data_folder") + "/objects.json")
+		print(path)
+		var object_data:Dictionary = {}
+		if ResourceLoader.exists(path):
+			object_data = load(path).data.get("objects", {}).get(object_id, {
+				"view_mesh": "res://addons/gk_editor_tools/assets/unknown_object.tres",
+				"scale": 1,
+				"texture": "res://addons/gk_editor_tools/assets/unknown_object_tex.tres",
+				"texture_rolledup": "res://addons/gk_editor_tools/assets/unknown_object_tex.tres"
+			})
+		$_ObjectInstance.mesh = load(object_data.get("view_mesh", "res://addons/gk_editor_tools/assets/unknown_object.tres"))
+		$_ObjectInstance.material_override.set_shader_parameter(&"Texture", load(object_data.get("texture", "res://addons/gk_editor_tools/assets/unknown_object_tex.tres")))
+		$_ObjectInstance.material_override.set_shader_parameter(&"Texture_Rolled", load(object_data.get("texture_rolledup", "res://addons/gk_editor_tools/assets/unknown_object_tex.tres")))
+		$_ObjectInstance.position = Vector3.UP * $_ObjectInstance.mesh.get_aabb().size.y * 0.5 * object_data.get("scale", 1)
+		$_ObjectInstance.scale = Vector3.ONE * object_data.get("scale", 1)

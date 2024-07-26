@@ -2,16 +2,17 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cin5lpx4jjjaf"
-path="res://.godot/imported/gk_level.png-c7cbae91eb02e63b6e6d406728c85a3f.ctex"
+uid="uid://c1v84t06m8n0g"
+path="res://.godot/imported/gk_cam_zone.svg-11936118f9563442b599e9f540181a11.ctex"
 metadata={
+"has_editor_variant": true,
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://addons/gk_editor_tools/icons/gk_level.png"
-dest_files=["res://.godot/imported/gk_level.png-c7cbae91eb02e63b6e6d406728c85a3f.ctex"]
+source_file="res://addons/gk_editor_tools/icons/gk_cam_zone.svg"
+dest_files=["res://.godot/imported/gk_cam_zone.svg-11936118f9563442b599e9f540181a11.ctex"]
 
 [params]
 
@@ -32,3 +33,6 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
+svg/scale=1.0
+editor/scale_with_editor_scale=true
+editor/convert_colors_with_editor_theme=true
